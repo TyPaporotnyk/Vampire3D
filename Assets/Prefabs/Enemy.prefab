@@ -261,4 +261,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  rotationSpeed: 10
+  rotationSpeed: 20
+  jumpForce: 10

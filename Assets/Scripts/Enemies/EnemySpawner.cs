@@ -13,16 +13,29 @@ public class EnemySpawner : MonoBehaviour
     private List<GameObject> _enemies = new List<GameObject>();
     private GameObject _player;
 
+    private Coroutine _spawnCoroutine;
+    private bool _isTriggered;
+
+
     void Start()
     {
         _player = GameObject.FindWithTag("Player");
-        // StartCoroutine(SpawnLoop());
     }
 
     void Update()
     {
-        bool isTrigered = CheckTrigger();
-        Debug.Log(isTrigered);
+        bool triggeredNow = CheckTrigger();
+
+        if (triggeredNow && !_isTriggered)
+        {
+            StartSpawning();
+        }
+        else if (!triggeredNow && _isTriggered)
+        {
+            StopSpawning();
+        }
+
+        _isTriggered = triggeredNow;
     }
 
     private IEnumerator SpawnLoop()
@@ -34,14 +47,21 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, spawnRadius);
 
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, spawnTrigerRadius);
+    void StartSpawning()
+    {
+        _spawnCoroutine = StartCoroutine(SpawnLoop());
     }
+
+    void StopSpawning()
+    {
+        if (_spawnCoroutine != null)
+        {
+            StopCoroutine(_spawnCoroutine);
+            _spawnCoroutine = null;
+        }
+    }
+
 
     private void SpawnEnemy()
     {
@@ -82,5 +102,14 @@ public class EnemySpawner : MonoBehaviour
         diff.y = 0f;
 
         return diff.sqrMagnitude <= spawnTrigerRadius * spawnTrigerRadius;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, spawnRadius);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, spawnTrigerRadius);
     }
 }
