@@ -6,6 +6,7 @@ public class PlayerController : BaseMovement
     public Transform groundCheck;
     public float groundDistance = 0.25f;
     public LayerMask groundLayer;
+    public Transform cameraTransform;
 
     private PlayerInputAction _input;
     private InputAction _moveAction;
@@ -30,11 +31,18 @@ public class PlayerController : BaseMovement
     {
         Vector2 input = _moveAction.ReadValue<Vector2>();
 
-        _moveDir = new Vector3(
-            input.x,
-            0f,
-            input.y
-        );
+        Vector3 camForward = cameraTransform.forward;
+        Vector3 camRight = cameraTransform.right;
+
+        camForward.y = 0f;
+        camRight.y = 0f;
+
+        camForward.Normalize();
+        camRight.Normalize();
+
+        _moveDir =
+            camForward * input.y +
+            camRight * input.x;
 
         if (_jumpAction.triggered)
             _jumpPressed = true;
