@@ -123,4 +123,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 6065768753941118411, guid: 9980c9cd20d4b452790c29d033ba2aa7, type: 3}
   spawnRadius: 5
+  spawnTrigerRadius: 10
   spawnDelay: 5

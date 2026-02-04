@@ -5,14 +5,24 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject EnemyPrefab;
-    public float spawnRadius = 10f;
+
+    public float spawnRadius = 5f;
+    public float spawnTrigerRadius = 10f;
     public float spawnDelay = 2f;
 
     private List<GameObject> _enemies = new List<GameObject>();
+    private GameObject _player;
 
     void Start()
     {
-        StartCoroutine(SpawnLoop());
+        _player = GameObject.FindWithTag("Player");
+        // StartCoroutine(SpawnLoop());
+    }
+
+    void Update()
+    {
+        bool isTrigered = CheckTrigger();
+        Debug.Log(isTrigered);
     }
 
     private IEnumerator SpawnLoop()
@@ -28,6 +38,9 @@ public class EnemySpawner : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, spawnRadius);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, spawnTrigerRadius);
     }
 
     private void SpawnEnemy()
@@ -58,5 +71,16 @@ public class EnemySpawner : MonoBehaviour
         float y = y0 + r * Mathf.Sin(theta);
 
         return new Vector2(x, y);
+    }
+
+    private bool CheckTrigger()
+    {
+        Vector3 playerPos = _player.transform.position;
+        Vector3 targetPos = transform.position;
+
+        Vector3 diff = playerPos - targetPos;
+        diff.y = 0f;
+
+        return diff.sqrMagnitude <= spawnTrigerRadius * spawnTrigerRadius;
     }
 }
