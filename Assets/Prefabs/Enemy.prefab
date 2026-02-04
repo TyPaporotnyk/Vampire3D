@@ -260,6 +260,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c3bef3e7a8eed0cb56a9fd235f297d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  rotationSpeed: 20
-  jumpForce: 10
+  config: {fileID: 11400000, guid: bc08c1f8d9a3c9edaacf61cc9bb6d437, type: 2}

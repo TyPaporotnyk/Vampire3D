@@ -2355,15 +2355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dc5b20ee0d5b970bb2622b99adf46ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  rotationSpeed: 20
-  jumpForce: 7
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 2
-  groundDrag: 6
-  airDrag: 0
+  config: {fileID: 11400000, guid: f1c3199c5dc94da73a879302292c1a32, type: 2}
   groundCheck: {fileID: 1069219093}
-  groundDistance: 0.25
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

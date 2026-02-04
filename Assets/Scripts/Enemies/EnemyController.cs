@@ -1,12 +1,16 @@
 using UnityEngine;
 
-public class EnemyController : BaseMovement
+public class EnemyController : MonoBehaviour
 {
-    private GameObject _player;
+    [SerializeField] private EnemyConfig config;
 
-    void Start()
+    private GameObject _player;
+    private Rigidbody _rb;
+
+    void Awake()
     {
         _player = GameObject.FindWithTag("Player");
+        _rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
@@ -27,5 +31,28 @@ public class EnemyController : BaseMovement
         );
 
         return dir.normalized;
+    }
+
+    private void Move(Vector3 moveDir)
+    {
+        _rb.MovePosition(
+            _rb.position +
+            moveDir * config.moveSpeed * Time.fixedDeltaTime
+        );
+
+        if (moveDir.sqrMagnitude > 0.0001f)
+        {
+            Quaternion targetRot =
+                Quaternion.LookRotation(moveDir);
+
+            Quaternion newRot =
+                Quaternion.Slerp(
+                    _rb.rotation,
+                    targetRot,
+                    config.rotationSpeed * Time.fixedDeltaTime
+                );
+
+            _rb.MoveRotation(newRot);
+        }
     }
 }
