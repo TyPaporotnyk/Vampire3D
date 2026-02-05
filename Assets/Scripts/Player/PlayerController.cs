@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private PlayerInputAction _input;
     private InputAction _moveAction;
     private InputAction _jumpAction;
+    private InputAction _pauseAction;
     private GameObject _camera;
 
     private Vector3 _moveDir;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
         _input = new PlayerInputAction();
         _moveAction = _input.Player.Move;
         _jumpAction = _input.Player.Jump;
+        _pauseAction = _input.Player.DebugPause;
 
         _rb = GetComponent<Rigidbody>();
     }
@@ -54,6 +56,11 @@ public class PlayerController : MonoBehaviour
             _jumpPressed = true;
 
         _jumpHeld = _jumpAction.IsPressed();
+
+        if(_pauseAction.triggered)
+        {
+            Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
+        }
     }
 
     void FixedUpdate()
@@ -131,7 +138,7 @@ public class PlayerController : MonoBehaviour
         Instantiate(
             jumpFx,
             groundCheck.position,
-            Quaternion.Euler(90, 0, 0)
+            Quaternion.Euler(-90, 0, 0)
         );
 
         _isGrounded = false;
