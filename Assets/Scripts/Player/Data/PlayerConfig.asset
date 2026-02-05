@@ -15,7 +15,7 @@ MonoBehaviour:
   maxHealth: 100
   moveSpeed: 10
   rotationSpeed: 10
-  jumpSpeed: 10
+  jumpSpeed: 20
   fallMultiplier: 2.5
   lowJumpMultiplier: 2.5
   groundDrag: 6

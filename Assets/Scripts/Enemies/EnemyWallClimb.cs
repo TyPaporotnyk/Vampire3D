@@ -10,16 +10,13 @@ public class EnemyWallClimb : MonoBehaviour
     [SerializeField] private float rayOffset = 0.25f;
 
     private Rigidbody _rb;
-    private EnemyMovement _movement;
     private Transform _transform;
 
     private bool _isClimbing;
-    public bool IsClimbing => _isClimbing;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _movement = GetComponent<EnemyMovement>();
         _transform = transform;
     }
 
@@ -46,28 +43,18 @@ public class EnemyWallClimb : MonoBehaviour
             checkDistance,
             wallLayer
         ))
-        {
             _isClimbing = true;
-        }
         else
-        {
             _isClimbing = false;
-        }
-
-        Debug.DrawRay(
-            origin,
-            forwardDir * checkDistance,
-            _isClimbing ? Color.red : Color.green
-        );
     }
 
     private void Climb()
     {
-        _rb.linearDamping = 0;
+        Vector3 velocity = _rb.linearVelocity;
 
-        _transform.position +=
-            Vector3.up *
-            climbSpeed *
-            Time.fixedDeltaTime;
+        velocity.y = climbSpeed;
+
+        _rb.linearVelocity = velocity;
+        Debug.Log(_transform.position);
     }
 }
