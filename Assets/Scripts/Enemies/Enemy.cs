@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
 
     public void MyFixedUpdate()
     {
+        _movement.MyFixedUpdate();
         _brain.MyFixedUpdate();
     }
 }

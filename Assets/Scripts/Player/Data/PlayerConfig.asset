@@ -17,7 +17,7 @@ MonoBehaviour:
   rotationSpeed: 10
   jumpSpeed: 10
   fallMultiplier: 2.5
-  lowJumpMultiplier: 2
+  lowJumpMultiplier: 2.5
   groundDrag: 6
   airDrag: 0
   groundDistance: 0.25

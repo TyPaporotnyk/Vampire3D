@@ -5,8 +5,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerConfig config;
     [SerializeField] private ParticleSystem jumpFx;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
 
     private PlayerInputAction _input;
     private InputAction _moveAction;

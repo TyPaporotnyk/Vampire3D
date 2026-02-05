@@ -4,22 +4,35 @@ public class EnemyMovement : MonoBehaviour, IMovable
 {
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float rotationSpeed = 3f;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundDistance = 0.25f;
+    public float groundDrag = 6f;
+    public float airDrag = 0f;
 
     private Rigidbody _rb;
-
+    private bool _isGrounded;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
     }
 
+    public void MyFixedUpdate()
+    {
+        CheckGround();
+        ApplyDrag();
+    }
+
     private void ApplyDrag()
     {
-        _rb.linearDamping = 6;
+        if (_isGrounded)
+            _rb.linearDamping = groundDrag;
+        else
+            _rb.linearDamping = airDrag;
     }
 
     public void Move(Vector3 direction)
     {
-        ApplyDrag();
         _rb.MovePosition(
             _rb.position +
             direction * moveSpeed * Time.fixedDeltaTime
@@ -39,5 +52,14 @@ public class EnemyMovement : MonoBehaviour, IMovable
 
             _rb.MoveRotation(newRot);
         }
+    }
+    private void CheckGround()
+    {
+        _isGrounded = Physics.Raycast(
+            groundCheck.position,
+            Vector3.down,
+            groundDistance,
+            groundLayer
+        );
     }
 }

@@ -3,11 +3,13 @@ using UnityEngine;
 public class EnemyBrain : MonoBehaviour
 {
     private Transform _player;
-    private EnemyMovement movement;
+    private EnemyMovement _movement;
+    private EnemyWallClimb _climb;
 
     private void Awake()
     {
-        movement = GetComponent<EnemyMovement>();
+        _movement = GetComponent<EnemyMovement>();
+        _climb = GetComponent<EnemyWallClimb>();
         GameObject playerObj = GameObject.FindWithTag("Player");
 
         if (playerObj != null) _player = playerObj.transform;
@@ -18,7 +20,11 @@ public class EnemyBrain : MonoBehaviour
         if (_player == null) return;
 
         Vector3 dir = GetDirectionToPlayer();
-        movement.Move(dir);
+
+        _climb.MyFixedUpdate(dir);
+
+        // if (!_climb.IsClimbing)
+        _movement.Move(dir);
     }
 
     private Vector3 GetDirectionToPlayer()
