@@ -139,7 +139,7 @@ Transform:
   m_GameObject: {fileID: 6065768753941118411}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.12752795, y: 1, z: -0.068938255}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: f1c3199c5dc94da73a879302292c1a32, type: 2}
+  jumpFx: {fileID: 8272504125257126868, guid: 4dca306e37523d7daa9ad8c69d99f8a2, type: 3}
   groundCheck: {fileID: 612252989964581857}
   groundLayer:
     serializedVersion: 2

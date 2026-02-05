@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerConfig config;
+    [SerializeField] private ParticleSystem jumpFx;
     public Transform groundCheck;
     public LayerMask groundLayer;
 
@@ -126,6 +127,11 @@ public class PlayerController : MonoBehaviour
         _rb.AddForce(
             Vector3.up * config.jumpSpeed,
             ForceMode.Impulse
+        );
+        Instantiate(
+            jumpFx,
+            groundCheck.position,
+            Quaternion.Euler(90, 0, 0)
         );
 
         _isGrounded = false;
