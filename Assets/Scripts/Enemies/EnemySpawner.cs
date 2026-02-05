@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -7,61 +5,15 @@ public class EnemySpawner : MonoBehaviour
     public GameObject EnemyPrefab;
 
     public float spawnRadius = 5f;
-    public float spawnTrigerRadius = 10f;
-    public float spawnDelay = 2f;
-
-    private List<GameObject> _enemies = new List<GameObject>();
-    private GameObject _player;
-
-    private Coroutine _spawnCoroutine;
-    private bool _isTriggered;
-
+    public int enemies = 10;
 
     void Start()
     {
-        _player = GameObject.FindWithTag("Player");
-    }
-
-    void Update()
-    {
-        bool triggeredNow = CheckTrigger();
-
-        if (triggeredNow && !_isTriggered)
-        {
-            StartSpawning();
-        }
-        else if (!triggeredNow && _isTriggered)
-        {
-            StopSpawning();
-        }
-
-        _isTriggered = triggeredNow;
-    }
-
-    private IEnumerator SpawnLoop()
-    {
-        while (true)
+        for (int i = 0; i < enemies; i++)
         {
             SpawnEnemy();
-            yield return new WaitForSeconds(spawnDelay);
         }
     }
-
-
-    void StartSpawning()
-    {
-        _spawnCoroutine = StartCoroutine(SpawnLoop());
-    }
-
-    void StopSpawning()
-    {
-        if (_spawnCoroutine != null)
-        {
-            StopCoroutine(_spawnCoroutine);
-            _spawnCoroutine = null;
-        }
-    }
-
 
     private void SpawnEnemy()
     {
@@ -78,8 +30,6 @@ public class EnemySpawner : MonoBehaviour
             spawnPos,
             Quaternion.identity
         );
-
-        _enemies.Add(enemy);
     }
 
     private Vector2 GetRandomPoint(float x0, float y0, float radius)
@@ -93,23 +43,9 @@ public class EnemySpawner : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    private bool CheckTrigger()
-    {
-        Vector3 playerPos = _player.transform.position;
-        Vector3 targetPos = transform.position;
-
-        Vector3 diff = playerPos - targetPos;
-        diff.y = 0f;
-
-        return diff.sqrMagnitude <= spawnTrigerRadius * spawnTrigerRadius;
-    }
-
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, spawnRadius);
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, spawnTrigerRadius);
     }
 }

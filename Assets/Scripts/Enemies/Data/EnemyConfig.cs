@@ -18,4 +18,5 @@ public class EnemyConfig : ScriptableObject
     public float groundDrag = 6f;
     public float airDrag = 0f;
     public float groundDistance = 0.25f;
+    public int damage = 5;
 }

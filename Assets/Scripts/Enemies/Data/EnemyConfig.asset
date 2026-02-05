@@ -21,3 +21,4 @@ MonoBehaviour:
   groundDrag: 6
   airDrag: 0
   groundDistance: 0.25
+  damage: 1

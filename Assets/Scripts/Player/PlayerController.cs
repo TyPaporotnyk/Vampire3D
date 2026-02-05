@@ -6,11 +6,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerConfig config;
     public Transform groundCheck;
     public LayerMask groundLayer;
-    public Transform cameraTransform;
 
     private PlayerInputAction _input;
     private InputAction _moveAction;
     private InputAction _jumpAction;
+    private GameObject _camera;
 
     private Vector3 _moveDir;
     private bool _jumpPressed;
@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        _camera = GameObject.FindWithTag("MainCamera");
         _input = new PlayerInputAction();
         _moveAction = _input.Player.Move;
         _jumpAction = _input.Player.Jump;
@@ -35,8 +36,8 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 input = _moveAction.ReadValue<Vector2>();
 
-        Vector3 camForward = cameraTransform.forward;
-        Vector3 camRight = cameraTransform.right;
+        Vector3 camForward = _camera.transform.forward;
+        Vector3 camRight = _camera.transform.right;
 
         camForward.y = 0f;
         camRight.y = 0f;
