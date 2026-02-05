@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private InputAction _jumpAction;
     private InputAction _pauseAction;
     private GameObject _camera;
+    private PlayerAnimator _animator;
 
     private Vector3 _moveDir;
     private bool _jumpPressed;
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
         _pauseAction = _input.Player.DebugPause;
 
         _rb = GetComponent<Rigidbody>();
+        _animator = GetComponentInChildren<PlayerAnimator>();
     }
 
     void OnEnable() => _input.Enable();
@@ -57,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
         _jumpHeld = _jumpAction.IsPressed();
 
-        if(_pauseAction.triggered)
+        if (_pauseAction.triggered)
         {
             Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
         }
@@ -66,8 +68,10 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         CheckGround();
-        ApplyDrag();
 
+        _animator.SetAnimation("IsGrounded", _isGrounded);
+
+        ApplyDrag();
         Move(_moveDir);
 
         if (_jumpPressed)
@@ -100,6 +104,7 @@ public class PlayerController : MonoBehaviour
 
     protected void Move(Vector3 moveDir)
     {
+        _animator.StartAnimation("");
         _rb.MovePosition(
             _rb.position +
             moveDir * config.moveSpeed * Time.fixedDeltaTime
@@ -123,7 +128,11 @@ public class PlayerController : MonoBehaviour
 
     protected void Jump()
     {
-        if (!_isGrounded) return;
+        if (!_isGrounded)
+        {
+            _animator.StopAnimation("IsAirborne");
+            return;
+        }
 
         _rb.linearVelocity = new Vector3(
             _rb.linearVelocity.x,
@@ -140,6 +149,8 @@ public class PlayerController : MonoBehaviour
             groundCheck.position,
             Quaternion.Euler(-90, 0, 0)
         );
+
+        _animator.StartAnimation("IsAirborne");
 
         _isGrounded = false;
     }
