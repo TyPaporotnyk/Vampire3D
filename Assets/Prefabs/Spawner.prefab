@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 2653154056609827894}
   - component: {fileID: 1270868788714193074}
   - component: {fileID: 4046109090714254793}
-  - component: {fileID: 5609162726679249016}
+  - component: {fileID: 1046444332504829766}
   m_Layer: 0
   m_Name: Spawner
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2f9350500426d4aab856da47f5831b3f, type: 2}
+  - {fileID: 2100000, guid: a1e97cbf2538241b691aae8243b5fb10, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5609162726679249016
+--- !u!114 &1046444332504829766
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,9 +118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5945892464094231441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7de75cf7bf36d416e9492e0351d7eae5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7548e6704f79037dcbd485b60b56c193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 6065768753941118411, guid: 9980c9cd20d4b452790c29d033ba2aa7, type: 3}
-  spawnRadius: 5
-  enemies: 20
+  _enemyPrefab: {fileID: -6628315865002679128, guid: 9980c9cd20d4b452790c29d033ba2aa7, type: 3}

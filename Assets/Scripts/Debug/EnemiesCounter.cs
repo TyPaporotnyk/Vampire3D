@@ -5,16 +5,15 @@ using TMPro;
 public class EnemiesCounter : MonoBehaviour
 {
     private TextMeshProUGUI _enemiesCounter;
-    private float _deltaTime;
+    [SerializeField] private EnemyController _controller;
 
     private void Awake()
     {
         _enemiesCounter = GetComponent<TextMeshProUGUI>();
     }
 
-    void Update()
+    private void Update()
     {
-        int enemiesCount = 0;
-        _enemiesCounter.text = $"ENEMIES: {enemiesCount}";
+        _enemiesCounter.text = $"ENEMIES: {_controller.enemiesCount}";
     }
 }

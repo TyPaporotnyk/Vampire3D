@@ -1,25 +1,27 @@
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyBrain : MonoBehaviour
 {
-    [SerializeField] private EnemyConfig config;
+    private Transform _player;
+    private EnemyMovement movement;
 
-    private GameObject _player;
-    private Rigidbody _rb;
-
-    void Awake()
+    private void Awake()
     {
-        _player = GameObject.FindWithTag("Player");
-        _rb = GetComponent<Rigidbody>();
+        movement = GetComponent<EnemyMovement>();
+        GameObject playerObj = GameObject.FindWithTag("Player");
+
+        if (playerObj != null) _player = playerObj.transform;
     }
 
-    void FixedUpdate()
+    public void MyFixedUpdate()
     {
-        Vector3 dir = GetVectorToPlayer();
-        Move(dir);
+        if (_player == null) return;
+
+        Vector3 dir = GetDirectionToPlayer();
+        movement.Move(dir);
     }
 
-    Vector3 GetVectorToPlayer()
+    private Vector3 GetDirectionToPlayer()
     {
         Vector3 playerPos = _player.transform.position;
         Vector3 enemyPos = transform.position;
@@ -31,28 +33,5 @@ public class EnemyController : MonoBehaviour
         );
 
         return dir.normalized;
-    }
-
-    private void Move(Vector3 moveDir)
-    {
-        _rb.MovePosition(
-            _rb.position +
-            moveDir * config.moveSpeed * Time.fixedDeltaTime
-        );
-
-        if (moveDir.sqrMagnitude > 0.0001f)
-        {
-            Quaternion targetRot =
-                Quaternion.LookRotation(moveDir);
-
-            Quaternion newRot =
-                Quaternion.Slerp(
-                    _rb.rotation,
-                    targetRot,
-                    config.rotationSpeed * Time.fixedDeltaTime
-                );
-
-            _rb.MoveRotation(newRot);
-        }
     }
 }
