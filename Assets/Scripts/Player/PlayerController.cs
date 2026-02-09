@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private GameObject _camera;
     private PlayerAnimator _animator;
 
-    private Vector3 _moveDir;
+    public Vector3 _moveDir {get; private set;}
     private bool _jumpPressed;
     private bool _jumpHeld;
     private bool _isGrounded;
@@ -130,7 +130,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!_isGrounded)
         {
-            _animator.StopAnimation("IsAirborne");
             return;
         }
 
@@ -149,8 +148,6 @@ public class PlayerController : MonoBehaviour
             groundCheck.position,
             Quaternion.Euler(-90, 0, 0)
         );
-
-        _animator.StartAnimation("IsAirborne");
 
         _isGrounded = false;
     }

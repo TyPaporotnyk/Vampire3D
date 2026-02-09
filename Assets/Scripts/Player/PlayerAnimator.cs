@@ -6,15 +6,6 @@ public class PlayerAnimator : MonoBehaviour
     private Animator _animator;
     private Rigidbody _rb;
 
-    private static readonly int SpeedHash =
-        Animator.StringToHash("Speed");
-
-    private static readonly int IsGroundedHash =
-        Animator.StringToHash("Grounded");
-
-    private static readonly int VerticalVelocityHash =
-        Animator.StringToHash("VerticalVelocity");
-
     private void Awake()
     {
         _animator = GetComponent<Animator>();
