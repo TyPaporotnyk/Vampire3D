@@ -15,12 +15,14 @@ public class PlayerController : MonoBehaviour
     private GameObject _camera;
     private PlayerAnimator _animator;
 
-    public Vector3 _moveDir {get; private set;}
+    public Vector3 _moveDir { get; private set; }
     private bool _jumpPressed;
     private bool _jumpHeld;
     private bool _isGrounded;
 
-    private Rigidbody _rb;
+    public Rigidbody _rb { get; private set; }
+
+    public float speed => config.moveSpeed;
 
     void Awake()
     {
@@ -104,7 +106,6 @@ public class PlayerController : MonoBehaviour
 
     protected void Move(Vector3 moveDir)
     {
-        _animator.StartAnimation("");
         _rb.MovePosition(
             _rb.position +
             moveDir * config.moveSpeed * Time.fixedDeltaTime
