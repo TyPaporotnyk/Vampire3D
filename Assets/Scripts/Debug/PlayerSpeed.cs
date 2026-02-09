@@ -14,8 +14,8 @@ public class PlayerSpeed : MonoBehaviour
 
     void Update()
     {
-        Vector3 moveDir = _controller._moveDir;
+        Vector3 moveSpeed = _controller._moveDir * _controller.speed;
 
-        _vSpeed.text = $"X: {moveDir.x} \nY: {moveDir.y} \nZ: {moveDir.z}";
+        _vSpeed.text = $"X: {moveSpeed.x} \nY: {moveSpeed.y} \nZ: {moveSpeed.z}";
     }
 }
